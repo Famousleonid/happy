@@ -6,7 +6,7 @@
         <div class="card shadow firm-border bg-white mt-2 col-8">
 
             <div class="card-header">
-                <h3 class="card-title text-bold">Create of category</h3>
+                <h3 class="card-title text-bold">Create of product</h3>
             </div>
 
             <form role="form" method="post" action="{{route('category.store')}}" enctype="multipart/form-data">

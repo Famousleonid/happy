@@ -11,7 +11,6 @@ class MainController extends Controller
     public function index()
     {
         $categories = Category::All();
-        View::share('main_categories', $categories);
 
         return view('main.index', compact('categories'));
 

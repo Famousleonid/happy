@@ -4,8 +4,8 @@ body {
     background-image: url('../public/img/h2.jpeg');
     background-size: cover; /* Масштабирование картинки, чтобы покрыть весь экран */
     background-attachment: fixed; /* Картинка остается на месте при прокрутке */
-    background-position: center; /* Центрирование картинки */
-    background-repeat: no-repeat; /* Картинка не повторяется */
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 footer {
@@ -48,7 +48,7 @@ img.prod {
         display: none !important;
     }
 
-    main {
+    .main-card {
         margin-left: 0 !important;
     }
 

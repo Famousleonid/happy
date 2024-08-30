@@ -1,30 +1,39 @@
-<?php
 @extends('master')
 
 @section('content')
 
-    <main class="container-fluid mt-3" style="margin-left: 270px;">
-        <div class="row">
-            <div class="col-md-9" id="mainblock" style="display: none">
+    @include('components.side-menu')
 
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 ">
-                    @for ($i = 0; $i < 20; $i++)
+    <div class="container-fluid main-card">
+
+        <div class="row">
+            <div class="col-md-9 offset-md-3">
+
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mt-3 p-3">
+                    @foreach ($filter_cards as $card)
                         <div class="col">
                             <div class="card h-100 product-card shadow">
                                 <div class="card-img ml-auto">
-                                    <img src="{{asset('img/pro.webp')}}" class="card-img-top prod " alt="Product Image" >
+                                    <p>{{$card->name}}</p>
+                                   {{-- <img src="{{asset('img/pro.webp')}}" class="card-img-top prod " alt="Product Image" >--}}
                                 </div>
                                 <div class="card-footer">
-                                    <h5 class="card-title">Товар {{$i + 1}}</h5>
+                                    <h5 class="card-title">Товар </h5>
                                     <p class="card-text">Описание товара.</p>
                                 </div>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
+
             </div>
         </div>
-    </main>
 
+    </div>
 
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("show_category").innerText = @json($name_category->name);;
+        });
+    </script>
 @endsection

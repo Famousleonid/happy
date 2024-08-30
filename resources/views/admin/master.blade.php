@@ -77,6 +77,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('home')}}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-sitemap"></i>
+                            <p>Back to website</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('logout')}}"
                            onclick="event.preventDefault();
                                 document.getElementById('logout-form-menu').submit();">
