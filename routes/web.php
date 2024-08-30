@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +20,10 @@ Route::get('/clear', function () {
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 
-Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth'])->name('admin.index');
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
+    Route::get('/main', [AdminController::class, 'index'])->name('admin.index');
+    Route::resource('/product', ProductController::class);
+    Route::resource('/category', CategoryController::class);
 
+});

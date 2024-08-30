@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.css')}}">
-    {{--<link rel="stylesheet" href="{{asset('assets/jquery.fancybox.min.css')}}">--}}
+
 
     @yield('links')
 
@@ -65,19 +65,19 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item ">
-                        <a href="" class="nav-link">
+                        <a href="{{route('product.index')}}" class="nav-link">
                             <i class="nav-icon fa-solid fa-sitemap"></i>
                             <p>Product</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{route('category.index')}}" class="nav-link">
                             <i class="nav-icon fa-solid fa-layer-group"></i>
                             <p>Categories</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
+                        <a class="nav-link" href=""
                            onclick="event.preventDefault();
                                 document.getElementById('logout-form-menu').submit();">
                             <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -93,7 +93,6 @@
     </aside>
 
     <div class="content-wrapper ">
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -149,7 +148,7 @@
 <script src="{{asset('js/adminlte.min.js')}}"></script>
 <script src="https://cdn.datatables.net/v/bs4/dt-1.13.8/af-2.6.0/cr-1.7.0/fh-3.4.0/rr-1.4.1/sp-2.2.0/datatables.min.js"></script>
 <script src="https://kit.fontawesome.com/49f401fbd8.js" crossorigin="anonymous"></script>
-{{--<script src="{{ asset('assets/jquery.fancybox.min.js') }}"></script>--}}
+
 
 @yield('scripts')
 
@@ -157,11 +156,14 @@
 <script>
 
     $('.nav-sidebar a').each(function () {
+
+        console.log( window.location.pathname)
+
         let location = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
         let link = this.href;
 
-        console.log(link)
+
 
         if (link === location) {
             $(this).addClass('active');

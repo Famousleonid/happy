@@ -29,7 +29,7 @@
                     </div>
                     <div class="col text-right">
 
-                        <a class="" href="{{route('login')}}">
+                        <a class="" href="{{route('admin.index')}}">
                             <img src="{{asset('img/set.png')}}" alt="" width="30px">
                         </a>
                         <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
