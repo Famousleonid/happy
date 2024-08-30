@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=""
+                        <a class="nav-link" href="{{route('logout')}}"
                            onclick="event.preventDefault();
                                 document.getElementById('logout-form-menu').submit();">
                             <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -157,13 +157,11 @@
 
     $('.nav-sidebar a').each(function () {
 
-        console.log( window.location.pathname)
-
         let location = window.location.protocol + '//' + window.location.host + window.location.pathname;
-
         let link = this.href;
 
-
+        console.log("location = ", location)
+        console.log('link = ', link)
 
         if (link === location) {
             $(this).addClass('active');

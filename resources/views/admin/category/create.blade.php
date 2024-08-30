@@ -6,10 +6,10 @@
         <div class="card shadow firm-border bg-white mt-2 col-8">
 
             <div class="card-header">
-                <h3 class="card-title text-bold">Create of customer</h3>
+                <h3 class="card-title text-bold">Create of category</h3>
             </div>
 
-            <form role="form" method="post" action="{{route('customers.store')}}" enctype="multipart/form-data">
+            <form role="form" method="post" action="{{route('category.store')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -23,12 +23,12 @@
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                     <div class="card-footer col-2 justify-content-end">
-                        <a href="{{route('customers.index')}}" class="btn btn-info btn-block">Cancel</a>
+                        <a href="{{route('category.index')}}" class="btn btn-info btn-block">Cancel</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    
+
 @endsection
 

@@ -19,13 +19,19 @@ class CategoryController extends Controller
 
     public function create()
     {
-
+        return View('admin.category.create');
     }
 
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => ['string', 'max:100'],
+        ]);
 
+        $customer = Category::create($request->all());
+
+        return redirect()->route('category.index')->with('success', 'Category added');
     }
 
 

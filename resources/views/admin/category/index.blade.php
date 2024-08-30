@@ -30,15 +30,15 @@
                                     <td class="text-center">{{$loop->iteration}}</td>
                                     <td>{{$category->name}}</td>
                                     <td class="text-center">
-                                        <a href="{{route('category.edit', ['$category' => $category->id]) }}"><img src="{{asset('img/set.png')}}" width="25" alt=""></a>
+                                        <a href="{{route('category.edit', ['category' => $category->id]) }}"><img src="{{asset('img/set.png')}}" width="25" alt=""></a>
                                     </td>
                                     <td class="text-center">
                                         <div>
-                                            <form action="{{route('category.destroy', ['$category' => $category->id])}}" method="post">
+                                            <form action="{{route('category.destroy', ['category' => $category->id])}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete Customer" data-message="Are you sure you want to delete customer: {{$customer->name}} ?">
+                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete category" data-message="Are you sure you want to delete category: {{$category->name}} ?">
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
 
