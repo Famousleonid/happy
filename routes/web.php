@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ Route::get('/clear', function () {
 });
 
 Route::get('/', [MainController::class, 'index'])->name('home');
+Route::resource('/card', CardController::class);
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 

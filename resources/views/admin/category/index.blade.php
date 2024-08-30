@@ -6,7 +6,7 @@
     <div class="container pl-3 pr-3 pt-2">
         <div class="card shadow firm-border bg-white mt-2">
             <div class="card-header row">
-                <div class="col-6"><h3 class="card-title text-bold">list of customers ( {{count($categories)}} )</h3></div>
+                <div class="col-6"><h3 class="card-title text-bold">list of categories ( {{count($categories)}} )</h3></div>
                 <div class="col-5"><a id="admin_new_firm_create" href={{route('category.create')}} class=""><img src="{{asset('img/plus.png')}}" width="30px" alt="" data-toggle="tooltip" data-placement="top" title="Add new customer"></a></div>
                 <div class="col-1 card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
@@ -30,6 +30,7 @@
                                     <td class="text-center">{{$loop->iteration}}</td>
                                     <td>{{$category->name}}</td>
                                     <td class="text-center">
+                                        {{Log::info('Category ID: ' . $category->id)}}
                                         <a href="{{route('category.edit', ['category' => $category->id]) }}"><img src="{{asset('img/set.png')}}" width="25" alt=""></a>
                                     </td>
                                     <td class="text-center">
@@ -64,7 +65,7 @@
 
 @section('scripts')
     <script>
-        let userTable = $('#categories-list').DataTable({
+        let Table = $('#categories-list').DataTable({
             "AutoWidth": true,
             "scrollY": "500px",
             "scrollCollapse": true,

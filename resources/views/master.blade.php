@@ -14,7 +14,7 @@
 
 <div class="picwrap">
     <header class="navbar navbar-dark bg-primary fixed-top row">
-        <div class="container">
+        <div class="container ">
             <div class="col text-start">
                 <a class="navbar-brand d-flex align-items-center" href="{{route('home')}}">
                     <img src="{{asset('img/home.png')}}" alt="">
@@ -24,8 +24,7 @@
             <div class="col text-center text-white">
                 <h5>Category</h5>
             </div>
-            <div class="col text-right">
-
+            <div class="col text-right mx-auto">
                 <a class="" href="{{route('admin.index')}}">
                     <img src="{{asset('img/set.png')}}" alt="" width="30px">
                 </a>
@@ -38,24 +37,35 @@
 
     </header>
 
-    @yield('sidebar')
+    <!-- Sidebar Menu -->
+    <div class="d-flex flex-column flex-shrink-0 p-2 bg-light position-fixed vh-100 shadow " id="desktopMenu"
+         style="width: 250px;">
+        <ul class="nav nav-pills flex-column mb-auto">
+            @foreach($main_categories as $category)
+                <li class="nav-item"><a class="nav-link" href="{{route('card.show',['card' => $category->id] )}}">{{$category->name}}</a>
+            @endforeach
+        </ul>
+
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item"><a class="nav-link" href="#">Archive</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Shipping</a></li>
+        </ul>
+    </div>
 
     <!-- for mobile -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="mobileMenuLabel">Categories</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <ul class="nav nav-pills flex-column mb-auto">пр
-                <li class="nav-item"><a class="nav-link active" href="#">Earring</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Brooch</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Bags (purs)</a></li>
-                <hr>
-                <li class="nav-item"><a class="nav-link" href="#">Vintage</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Dishes</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Other</a></li>
-                <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+            @foreach($main_categories as $category)
+                <li class="nav-item"><a class="nav-link" href="{{route('card.show',['card' => $category->id] )}}">{{$category->name}}</a></li>
+            @endforeach
+            </ul>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item"><a class="nav-link" href="#">Archive</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Shipping</a></li>
             </ul>
@@ -67,12 +77,12 @@
 </div>
 <footer class="bg-primary text-white text-center py-1 fixed-bottom w-100">
     <div class="row ">
-        <div class="col-md-4 col-12 p-1"><img src="{{asset('img/icons/F.png')}}" alt="" width="30">&nbsp;&nbsp;Nataliya
+        <div class="col-md-2 col-12 p-1"><img src="{{asset('img/icons/F.png')}}" alt="" width="30">&nbsp;&nbsp;Nataliya
             Steblyk
         </div>
-        <div class="col-md-4 col-12 p-1"><img src="{{asset('img/icons/mail.png')}}" alt="" width="30">&nbsp;&nbsp;nataliya@gmail.com
+        <div class="col-md-3 col-12 p-1"><img src="{{asset('img/icons/mail.png')}}" alt="" width="30">&nbsp;&nbsp;nataliya@gmail.com
         </div>
-        <div class="col-md-4 col-12 p-1"><img src="{{asset('img/icons/location.png')}}" alt="" width="30">&nbsp;&nbsp;Toronto,
+        <div class="col-md-6 col-12 p-1"><img src="{{asset('img/icons/location.png')}}" alt="" width="30">&nbsp;&nbsp;Toronto,
             South-east Etobicoke near The Queensway and ParkLawn Rd M8Y4E3
         </div>
     </div>
