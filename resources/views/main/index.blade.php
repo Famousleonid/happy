@@ -1,5 +1,27 @@
 @extends('master')
+@section('sidebar')
 
+
+    <!-- Sidebar Menu -->
+    <div class="d-flex flex-column flex-shrink-0 p-2 bg-light position-fixed vh-100 shadow " id="desktopMenu"
+         style="width: 250px;">
+        <ul class="nav nav-pills flex-column mb-auto">
+            @foreach($categories as $category)
+
+                <li class="nav-item"><a class="nav-link " href="#">{{$category->name}}</a>
+
+            @endforeach
+        </ul>
+
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item"><a class="nav-link" href="#">Archive</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Shipping</a></li>
+        </ul>
+    </div>
+
+
+@endsection
 @section('content')
 
     <main class="container-fluid mt-3" style="margin-left: 270px;">
