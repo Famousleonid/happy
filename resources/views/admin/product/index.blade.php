@@ -3,11 +3,20 @@
 
 @section('content')
 
-    <div class="container pl-3 pr-3 pt-2">
+    <style>
+        table.dataTable td {
+            white-space: normal;
+            word-wrap: break-word;
+        }
+    </style>
+
+
+
+    <div class="container-fluid pl-3 pr-3 pt-2">
         <div class="card shadow firm-border bg-white mt-2">
             <div class="card-header row">
                 <div class="col-6"><h3 class="card-title text-bold">list of product ( {{count($products)}} )</h3></div>
-                <div class="col-5"><a id="admin_new_firm_create" href={{route('category.create')}} class=""><img src="{{asset('img/plus.png')}}" width="30px" alt="" data-toggle="tooltip" data-placement="top" title="Add new customer"></a></div>
+                <div class="col-5"><a id="admin_new_firm_create" href={{route('product.create')}} class=""><img src="{{asset('img/plus.png')}}" width="30px" alt="" data-toggle="tooltip" data-placement="top" title="Add new product"></a></div>
                 <div class="col-1 card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                 </div>
@@ -15,11 +24,17 @@
             <div class="card-body">
                 <div class="box-body table-responsive">
                     @if(count($products))
-                        <table id="categories-list" class="table-sm table-bordered table-striped table-hover " style="width:100%;">
+                        <table id="product-list" class="table-sm table-bordered table-striped table-hover " style="width:100%;">
                             <thead>
                             <tr>
-                                <th class="text-center" data-orderable="false">№</th>
+                                <th data-orderable="true">category_id</th>
                                 <th>Name</th>
+                                <th>Price</th>
+                                <th>Old_price</th>
+                                <th>Images</th>
+                                <th>location</th>
+                                <th>Icon video</th>
+                                <th>Visible</th>
                                 <th class="text-center" data-orderable="false">Edit</th>
                                 <th class="text-center" data-orderable="false">Delete</th>
                             </tr>
@@ -27,19 +42,41 @@
                             <tbody>
                             @foreach ($products as $product)
                                 <tr>
-                                    <td class="text-center">{{$loop->iteration}}</td>
+                                    <td>{{$product->category->name}}</td>
                                     <td>{{$product->name}}</td>
+                                    <td>{{$product->price}}</td>
+                                    <td>{{$product->old_price}}</td>
+                                    <td>
+                                    @foreach ($product->getMedia('photos') as $media)
+                                        @if(strpos($media->mime_type, 'image') !== false)
+
+                                                <a href="{{ $media->getFullUrl() }}" data-fancybox="gallery-{{ $product->id }}">
+                                                    <img src="{{ $media->getUrl() }}" width="25" alt="">
+                                                </a>
+                                        @elseif(strpos($media->mime_type, 'video') !== false)
+
+                                                <a href="{{ $media->getFullUrl() }}" data-fancybox="gallery-{{ $product->id }}">
+                                                    <video width="25" controls>
+                                                        <source src="{{ $media->getUrl() }}" type="{{ $media->mime_type }}">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>{{$product->location}}</td>
+                                    <td>{{$product->icon}}</td>
+                                    <td>{{$product->status}}</td>
                                     <td class="text-center">
-                                        {{Log::info('Category ID: ' . $product->id)}}
-                                        <a href="{{route('product.edit', ['category' => $product->id]) }}"><img src="{{asset('img/set.png')}}" width="25" alt=""></a>
+                                        <a href="{{route('product.edit', ['product' => $product->id]) }}"><img src="{{asset('img/set.png')}}" width="25" alt=""></a>
                                     </td>
                                     <td class="text-center">
                                         <div>
-                                            <form action="{{route('product.destroy', ['category' => $product->id])}}" method="post">
+                                            <form action="{{route('product.destroy', ['product' => $product->id])}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete category" data-message="Are you sure you want to delete product: {{$product->name}} ?">
+                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete product" data-message="Are you sure you want to delete product: {{$product->name}} ?">
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
 
@@ -52,7 +89,7 @@
                             </tbody>
                         </table>
                     @else
-                        <p>No categories created</p>
+                        <p>No product created</p>
                     @endif
                 </div>
             </div>
@@ -61,33 +98,48 @@
 
     @include('components.delete')
 
-@endsection
 
-@section('scripts')
+
+
     <script>
-        let Table = $('#categories-list').DataTable({
-            "AutoWidth": true,
-            "scrollY": "500px",
-            "scrollCollapse": true,
-            "paging": false,
-            "ordering": true,
-            "info": false,
-        });
 
+        document.addEventListener("DOMContentLoaded", function() {
 
-        $('#confirmDelete').on('show.bs.modal', function (e) {
+            $('#product-list').DataTable({
+                "AutoWidth": false,
+                "scrollY": "auto",
+                "scrollCollapse": true,
+                "paging": false,
+                "ordering": true,
+                "info": false,
+                order: [[0, 'asc']],
+                columnDefs: [
+                    // { targets: 0, visible: false },
+                     { targets: 4, orderable: false },
+                    { targets: 6, orderable: false },
+                     { targets: 7, orderable: false }
+                ],
+                responsive: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
 
-            let message = $(e.relatedTarget).attr('data-message');
-            $(this).find('.modal-body p').text(message);
-            let $title = $(e.relatedTarget).attr('data-title');
-            $(this).find('.modal-title').text($title);
-            let form = $(e.relatedTarget).closest('form');
-            $(this).find('.modal-footer #buttonConfirm').data('form', form);
-        });
-
-        $('#confirmDelete').find('.modal-footer #buttonConfirm').on('click', function () {
-            $(this).data('form').submit();
+            $('[data-fancybox]').fancybox({
+                buttons: [
+                    "zoom",
+                    "slideShow",
+                    "download",
+                    "thumbs",
+                    "close"
+                ],
+                video: {
+                    autoStart: true
+                }
+            })
         });
 
     </script>
+
 @endsection

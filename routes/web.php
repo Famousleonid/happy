@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\MainController;
@@ -27,5 +28,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/main', [AdminController::class, 'index'])->name('admin.index');
     Route::resource('/product', ProductController::class);
     Route::resource('/category', CategoryController::class);
+    Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
 
 });

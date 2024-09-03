@@ -1,7 +1,7 @@
 
 <!-- Sidebar Menu -->
 <div class="d-flex flex-column flex-shrink-0 p-2 bg-light position-fixed vh-100 shadow " id="desktopMenu"
-     style="width: 220px;">
+     style="width: 210px;">
     <ul class="nav nav-pills flex-column mb-auto">
         @foreach($categories as $category)
             <li class="nav-item"><a class="nav-link" href="{{route('card.show',['card' => $category->id] )}}">{{$category->name}}</a>

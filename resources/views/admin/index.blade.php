@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container h-100">
         <div class="row my-3">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
@@ -35,7 +35,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success shadow">
                     <div class="inner">
-                        <h3>88<sup style="font-size: 20px"></sup></h3>
+                        <h3>...<sup style="font-size: 20px"></sup></h3>
 
                         <p>views per day {{ now()->format('d.M') }}</p>
                     </div>
@@ -52,7 +52,7 @@
                 <!-- small box -->
                 <div class="small-box bg-danger shadow">
                     <div class="inner">
-                        <h3>9</h3>
+                        <h3>...</h3>
                         <p>Number of orders for now</p>
                     </div>
                     <div class="icon">
@@ -64,7 +64,6 @@
 
         </div>
     </div><!-- /.container-fluid -->
-
 
 
 @endsection

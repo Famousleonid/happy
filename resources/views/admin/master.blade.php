@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('public/img/icons/favicon2.png')}}" type="image/png">
     <title>Admin happy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,20 +11,43 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.css')}}">
-
-
-    @yield('links')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+{{--    <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet">--}}
+{{--    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet">--}}
 
     <style>
         .firm-border {
             border-top: 5px solid #F8C50E;
         }
+
+        .win {
+            z-index: 120;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            /*            margin: auto;*/
+        }
+        .ss {border: 2px solid green}
+        .bb {border: 2px solid blue}
+        .rr {border: 2px solid red}
     </style>
 
 </head>
 
 <body class="hold-transition sidebar-mini  layout-fixed ">
+
+{{--<div id="loading-spinner" class="loading-spinner">--}}
+{{--    <div class="spinner-border text-primary" role="status">--}}
+{{--        <span class="sr-only">Loading...</span>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
+<div id="spinner-load">
+    <i style="text-align: center;" class="fa fa-spinner fa-spin text-primary fa-3x win"></i>
+</div>
+
 
 <div class="">
 
@@ -148,36 +172,65 @@
     </div>
 
 </div>
-
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</body>
+<script src="{{asset('js/jquery371min.js')}}" ></script>
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/adminlte.min.js')}}"></script>
-<script src="https://cdn.datatables.net/v/bs4/dt-1.13.8/af-2.6.0/cr-1.7.0/fh-3.4.0/rr-1.4.1/sp-2.2.0/datatables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 <script src="https://kit.fontawesome.com/49f401fbd8.js" crossorigin="anonymous"></script>
-
-
-@yield('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
 
-    $('.nav-sidebar a').each(function () {
+        $('.nav-sidebar a').each(function () {
 
-        let location = window.location.protocol + '//' + window.location.host + window.location.pathname;
-        let link = this.href;
+            let location = window.location.protocol + '//' + window.location.host + window.location.pathname;
+            let link = this.href;
+            if (link === location) {
+                $(this).addClass('active');
+                $(this).closest('.has-treeview').addClass('menu-open');
+            }
+        });
 
-        console.log("location = ", location)
-        console.log('link = ', link)
+        $('#confirmDelete').on('show.bs.modal', function (e) {
 
-        if (link === location) {
-            $(this).addClass('active');
-            $(this).closest('.has-treeview').addClass('menu-open');
+            let message = $(e.relatedTarget).attr('data-message');
+            $(this).find('.modal-body p').text(message);
+            let $title = $(e.relatedTarget).attr('data-title');
+            $(this).find('.modal-title').text($title);
+            let form = $(e.relatedTarget).closest('form');
+            $(this).find('.modal-footer #buttonConfirm').data('form', form);
+        });
+
+        $('#confirmDelete').find('.modal-footer #buttonConfirm').on('click', function () {
+            $(this).data('form').submit();
+        });
+
+
+        function showLoadingSpinner() {
+            document.querySelector('#spinner-load').classList.remove('d-none');
+
         }
-    });
 
+        function hideLoadingSpinner() {
+            document.querySelector('#spinner-load').classList.add('d-none');
+
+        }
+
+        hideLoadingSpinner();
+
+    });
 </script>
 
-</body>
+
 </html>
 
 

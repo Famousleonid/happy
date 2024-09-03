@@ -1,7 +1,7 @@
 body {
     padding-top: 56px; /* Отступ для хедера */
     padding-bottom: 56px; /* Отступ для футера */
-    background-image: url('../public/img/h2.jpeg');
+    background-image: url('../public/img/fon/h2.jpeg');
     background-size: cover; /* Масштабирование картинки, чтобы покрыть весь экран */
     background-attachment: fixed; /* Картинка остается на месте при прокрутке */
     background-position: center;
@@ -31,16 +31,40 @@ footer {
 .product-card:hover {
     transform: scale(1.05);
 }
-img.prod {
-    max-width: 180px;
-    min-width: 180px;
-    padding: 10px;
-}
 
 #desktopMenu .nav-link:hover {
     color: #fff; /* Цвет текста при наведении */
     background-color: #007bff; /* Цвет фона при наведении */
 }
+
+/*#loading-spinners {*/
+/*    position: fixed;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    z-index: 1050; !* Убедитесь, что спиннер находится выше других элементов *!*/
+/*    !*display: none; !* По умолчанию спиннер скрыт *!*!*/
+/*}*/
+
+/*body.loading .loading-spinners {*/
+/*    display: block; !* Показываем спиннер, когда тело имеет класс 'loading' *!*/
+/*}*/
+
+/*!* Отключаем скроллинг, пока спиннер активен *!*/
+/*body.loading {*/
+/*    overflow: hidden;*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
+
 /* --------------------------------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
@@ -56,4 +80,24 @@ img.prod {
         margin-left: 0 !important;
     }
 
+    .footer-location-text {
+        display: none;
+    }
+
+    .footer-facebook-text {
+        display: none;
+    }
+
+    .footer-email-text {
+        display: none;
+    }
+    .base-card:last-child {
+        margin-bottom: 40px; /* Отступ для мобильных устройств */
+    }
+    .footer-icons-row {
+        display: flex;
+        justify-content: space-around; /* Равномерное распределение иконок */
+        align-items: center;
+        text-align: center;
+    }
 }

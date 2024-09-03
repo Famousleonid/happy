@@ -32,7 +32,7 @@ class CardController extends Controller
 
         $categories = Category::All();
         $name_category = Category::where('id',$id)->first();
-        $filter_cards =  Product::where('category_id', $id)->get();
+        $filter_cards =  Product::where('category_id', $id)->where('status', 'yes')->get();
 
         return view('main.card',compact('categories', 'filter_cards','name_category'));
     }

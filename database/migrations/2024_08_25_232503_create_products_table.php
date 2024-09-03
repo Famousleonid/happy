@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('price');
-            $table->string('old_price');
+            $table->string('old_price')->nullable();;
             $table->string('location');
-            $table->string('icon');
-            $table->string('status');
+            $table->string('icon')->nullable();
+            $table->string('status')->default('yes');
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@
                                     <td class="text-center">{{$loop->iteration}}</td>
                                     <td>{{$category->name}}</td>
                                     <td class="text-center">
-                                        {{Log::info('Category ID: ' . $category->id)}}
+
                                         <a href="{{route('category.edit', ['category' => $category->id]) }}"><img src="{{asset('img/set.png')}}" width="25" alt=""></a>
                                     </td>
                                     <td class="text-center">
@@ -61,33 +61,17 @@
 
     @include('components.delete')
 
-@endsection
-
-@section('scripts')
     <script>
-        let Table = $('#categories-list').DataTable({
-            "AutoWidth": true,
-            "scrollY": "500px",
-            "scrollCollapse": true,
-            "paging": false,
-            "ordering": true,
-            "info": false,
+        document.addEventListener("DOMContentLoaded", function () {
+
+            let Table = $('#categories-list').DataTable({
+                "AutoWidth": true,
+                "scrollY": "500px",
+                "scrollCollapse": true,
+                "paging": false,
+                "ordering": true,
+                "info": false,
+            });
         });
-
-
-        $('#confirmDelete').on('show.bs.modal', function (e) {
-
-            let message = $(e.relatedTarget).attr('data-message');
-            $(this).find('.modal-body p').text(message);
-            let $title = $(e.relatedTarget).attr('data-title');
-            $(this).find('.modal-title').text($title);
-            let form = $(e.relatedTarget).closest('form');
-            $(this).find('.modal-footer #buttonConfirm').data('form', form);
-        });
-
-        $('#confirmDelete').find('.modal-footer #buttonConfirm').on('click', function () {
-            $(this).data('form').submit();
-        });
-
     </script>
 @endsection
