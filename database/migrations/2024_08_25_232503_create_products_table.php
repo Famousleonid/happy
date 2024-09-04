@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('icon')->nullable();
             $table->string('status')->default('yes');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

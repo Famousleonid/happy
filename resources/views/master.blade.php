@@ -50,7 +50,7 @@
 
             <div class="col-3 col-md-2 mb-1 mb-md-0">
                 <a href="https://www.facebook.com/marketplace/profile/NataliyaSteblyk" target="_blank" class="text-white text-decoration-none">
-                    <img src="{{asset('img/icons/F.png')}}" alt="" width="25">&nbsp;</i>
+                    <img src="{{asset('img/icons/F.png')}}" alt="" width="25">&nbsp;
                     <span class="footer-facebook-text">Nataliya Steblyk</span>
                 </a>
             </div>
@@ -64,7 +64,7 @@
 
             <div class="col-3 col-md-6 mb-1 mb-md-0">
                 <a href="#" data-bs-toggle="modal" data-bs-target="#locationModal" class="text-white text-decoration-none">
-                    <img src="{{ asset('img/icons/location.png') }}" alt="Location" width="25">&nbsp;</i>
+                    <img src="{{ asset('img/icons/location.png') }}" alt="Location" width="25">&nbsp;
                     <span class="footer-location-text">Toronto, South-east Etobicoke near The Queensway and ParkLawn Rd M8Y4E3</span>
                 </a>
             </div>
@@ -93,17 +93,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+@stack('stack')
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Функция для адаптивного поведения футера (если необходимо)
-        function adjustFooter() {
-            const footer = document.querySelector('footer');
-            if (window.innerWidth < 768) {
-                footer.classList.remove('fixed-bottom');
-            } else {
-                footer.classList.add('fixed-bottom');
-            }
-        }
+        // // Функция для адаптивного поведения футера (если необходимо)
+        // function adjustFooter() {
+        //     const footer = document.querySelector('footer');
+        //     if (window.innerWidth < 768) {
+        //         footer.classList.remove('fixed-bottom');
+        //     } else {
+        //         footer.classList.add('fixed-bottom');
+        //     }
+        // }
         // adjustFooter();
         // window.addEventListener('resize', adjustFooter);
     });

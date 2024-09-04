@@ -22,6 +22,7 @@ Route::get('/clear', function () {
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::resource('/card', CardController::class);
+Route::get('/bigshow/{id}', [MainController::class, 'show'])->name('bigshow');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 

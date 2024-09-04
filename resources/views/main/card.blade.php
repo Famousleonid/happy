@@ -46,7 +46,7 @@
                             <div class="card h-100 product-card shadow ">
                                 <div class="card-img ml-auto mb-1">
                                         @if ($card->getMedia('photos')->first())
-                                            <a href="">
+                                            <a href="{{route('bigshow',['id'=>$card->id])}}">
                                                 <img class="pic-image" src="{{ $card->getMedia('photos')->first()->getUrl() }}"  alt="Image">
                                             </a>
                                         @else
