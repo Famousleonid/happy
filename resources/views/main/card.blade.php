@@ -21,8 +21,8 @@
             padding: 0;
         }
         .card-img {
-            width: 100%;  /* Контейнер занимает всю ширину родителя */
-            height: 200px; /* Задайте высоту по вашему усмотрению */
+            width: 100%;
+            height: 210px; /* Задайте высоту по вашему усмотрению */
             position: relative;
         }
         .pic-image{
@@ -38,7 +38,7 @@
     <div class="container-fluid main-card">
         <div class="row">
             <div class="col-md-9 offset-md-2">
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mt-3 p-3">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mt-1 p-1">
 
                     @foreach ($filter_cards as $card)
 
@@ -62,7 +62,7 @@
                                         @endif
                                     </p>
                                     <h5 style="margin-bottom: 0; text-align: left; margin-left: 10px">{{$card->name}}</h5>
-                                    <p class="card-location">{{$card->location}}</p>
+                                    <p class="card-location mb-0">{{$card->location}}</p>
                                 </div>
                             </div>
                         </div>

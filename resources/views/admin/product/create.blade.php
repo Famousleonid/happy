@@ -44,11 +44,14 @@
 
                 <div class="card-body row">
 
-                    <div class="form-group d-flex align-items-center col-12 col-md-8">
+                    <div class="form-group d-flex align-items-center col-12 col-md-5">
                         <label for="location" class="small text-primary">location:</label>&nbsp;&nbsp;
                         <input type="text" name="location" id="location" class="form-control @error('location') is-invalid @enderror" placeholder="Enter name of ...">&nbsp;
                     </div>
-
+                    <div class="form-group d-flex align-items-center col-12 col-md-3">
+                        <label for="cost" class="small text-primary label-nowrap">Cost price:</label>&nbsp;&nbsp;
+                        <input type="number" name="cost" id="cost" class="form-control @error('location') is-invalid @enderror" >&nbsp;
+                    </div>
                     <div class="form-group d-flex align-items-center col-12 col-md-2">
                         <label for="icon" class="small"><img src="{{asset('img/icons/video.png')}}" alt="v" width="40"></label>&nbsp;
                         <select name="icon" id="icon" class="form-control">
@@ -65,6 +68,10 @@
                         </select>&nbsp;
                     </div>
 
+                    <div class="form-group d-flex align-items-center col-12 col-md-12">
+                        <label for="description" class="small text-primary">Description:</label>&nbsp;&nbsp;
+                        <textarea style="padding: 10px; text-indent: 0;" name="description" id="description" class="form-control" rows="6" cols="60"></textarea>
+                    </div>
 
                 </div>
                 <div class="form-group">
@@ -73,8 +80,8 @@
                            name="photos[]"
                            id="filepond"
                            multiple
-                           data-max-file-size="3MB"
-                           data-max-files="3" />
+                           data-max-file-size="10MB"
+                           data-max-files="10" />
 
                 </div>
 
@@ -87,10 +94,6 @@
                     </div>
                 </div>
 
-
-
-
-
             </form>
         </div>
     </div>
@@ -99,27 +102,12 @@
 
 @endsection
 
-<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-
-
     <script>
-
-        // FilePond.registerPlugin(
-        //     FilePondPluginFileEncode,
-        //     FilePondPluginFileValidateSize,
-        //     FilePondPluginImageExifOrientation,
-        //     FilePondPluginImagePreview
-        // );
-        // FilePond.create(
-        //     document.querySelector("input[id='filepond']")
-        // );
+        function showLoadingSpinner() {
+            document.querySelector('#spinner-load').classList.remove('d-none');
+        }
 
     </script>
-
 
 
 @endsection

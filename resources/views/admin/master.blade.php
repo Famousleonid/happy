@@ -38,16 +38,9 @@
 
 <body class="hold-transition sidebar-mini  layout-fixed ">
 
-{{--<div id="loading-spinner" class="loading-spinner">--}}
-{{--    <div class="spinner-border text-primary" role="status">--}}
-{{--        <span class="sr-only">Loading...</span>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
 <div id="spinner-load">
-    <i style="text-align: center;" class="fa fa-spinner fa-spin text-primary fa-3x win"></i>
+    <i style="text-align: center; z-index: 10000;" class="fa fa-spinner fa-spin text-primary fa-3x win"></i>
 </div>
-
 
 <div class="">
 
@@ -88,6 +81,12 @@
         <div class="sidebar">
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item ">
+                        <a href="{{route('admin.index')}}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-user-tie"></i>
+                            <p>Admin home</p>
+                        </a>
+                    </li>
                     <li class="nav-item ">
                         <a href="{{route('product.index')}}" class="nav-link">
                             <i class="nav-icon fa-solid fa-sitemap"></i>

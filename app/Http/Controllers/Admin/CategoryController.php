@@ -24,7 +24,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['string', 'max:35'],
+            'name' => ['string', 'max:20'],
         ]);
 
         $customer = Category::create($request->all());
@@ -48,7 +48,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => ['string', 'max:35'],
+            'name' => ['string', 'max:20'],
         ]);
         $category = Category::find($id);
         $category->update($request->all());

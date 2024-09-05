@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,8 +13,9 @@ class AdminController extends Controller
     public function index()
     {
         $categories = Category::All();
+        $product = Product::all();
 
-        return view('admin.index',compact('categories'));
+        return view('admin.index',compact('categories', 'product'));
     }
 
     public function create()

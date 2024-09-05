@@ -1,7 +1,7 @@
 body {
     padding-top: 56px; /* Отступ для хедера */
     padding-bottom: 56px; /* Отступ для футера */
-    background-image: url('../public/img/fon/h2.jpeg');
+    background-image: url('../public/img/fon/fon10.jpg');
     background-size: cover; /* Масштабирование картинки, чтобы покрыть весь экран */
     background-attachment: fixed; /* Картинка остается на месте при прокрутке */
     background-position: center;
@@ -22,9 +22,9 @@ footer {
 .product-card {
     background-color: #fff;
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 3px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s;
 }
 
@@ -37,23 +37,7 @@ footer {
     background-color: #007bff; /* Цвет фона при наведении */
 }
 
-/*#loading-spinners {*/
-/*    position: fixed;*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    transform: translate(-50%, -50%);*/
-/*    z-index: 1050; !* Убедитесь, что спиннер находится выше других элементов *!*/
-/*    !*display: none; !* По умолчанию спиннер скрыт *!*!*/
-/*}*/
 
-/*body.loading .loading-spinners {*/
-/*    display: block; !* Показываем спиннер, когда тело имеет класс 'loading' *!*/
-/*}*/
-
-/*!* Отключаем скроллинг, пока спиннер активен *!*/
-/*body.loading {*/
-/*    overflow: hidden;*/
-/*}*/
 
 
 /* --------------------------------------------------------------------------------------------------- */

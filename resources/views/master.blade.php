@@ -14,10 +14,11 @@
 <body>
 
 <div class="picwrap">
-    <header class="navbar navbar-dark bg-primary fixed-top">
+
+    <header class="navbar navbar-dark bg-primary fixed-top ">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-                <img src="{{ asset('img/home.png') }}" alt="Home" width="30" height="30">
+                <img src="{{ asset('img/home.png') }}" alt="Home" width="25" height="25">
                 <span class="ms-2 text-light">HappyNat</span>
             </a>
             <div class="col text-center text-white">
@@ -34,7 +35,7 @@
 
 </div>
 
-<footer class="bg-primary text-white text-center py-2 fixed-bottom">
+<footer class="bg-primary text-white text-center py-1 fixed-bottom">
     <div class="container-fluid">
         <div class="row d-flex justify-content-around d-flex align-items-center">
 
@@ -49,7 +50,7 @@
             </div>
 
             <div class="col-3 col-md-2 mb-1 mb-md-0">
-                <a href="https://www.facebook.com/marketplace/profile/NataliyaSteblyk" target="_blank" class="text-white text-decoration-none">
+                <a href="https://www.facebook.com/marketplace/profile/nataliyasteblyk" target="_blank" class="text-white text-decoration-none">
                     <img src="{{asset('img/icons/F.png')}}" alt="" width="25">&nbsp;
                     <span class="footer-facebook-text">Nataliya Steblyk</span>
                 </a>
@@ -58,7 +59,7 @@
             <div class="col-3 col-md-2 mb-1 mb-md-0 text">
                 <a href="mailto:nataliya@gmail.com" class="text-white text-decoration-none ">
                     <i class="fas fa-envelope fa-lg me-2"></i>
-                    <span class="footer-email-text" >nataliya@gmail.com</span>
+                    <span class="footer-email-text" >info@happynat.ca</span>
                 </a>
             </div>
 
@@ -72,7 +73,6 @@
     </div>
 </footer>
 
-<!-- Модальное окно для отображения Google Maps -->
 <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">

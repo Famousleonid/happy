@@ -86,11 +86,14 @@
 
                 <div class="card-body row">
 
-                    <div class="form-group d-flex align-items-center col-12 col-md-8">
+                    <div class="form-group d-flex align-items-center col-12 col-md-5">
                         <label for="location" class="small text-primary">location:</label>&nbsp;&nbsp;
                         <input type="text" name="location" id="location" value="{{$current_prod->location}}" class="form-control @error('location') is-invalid @enderror">&nbsp;
                     </div>
-
+                    <div class="form-group d-flex align-items-center col-12 col-md-3">
+                        <label for="cost" class="small text-primary label-nowrap">Cost price:</label>&nbsp;&nbsp;
+                        <input type="number" name="cost" id="cost" value="{{$current_prod->cost}}" class="form-control @error('location') is-invalid @enderror" >&nbsp;
+                    </div>
                     <div class="form-group d-flex align-items-center col-12 col-md-2">
                         <label for="icon" class="small"><img src="{{asset('img/icons/video.png')}}" alt="v" width="40"></label>&nbsp;
                         <select name="icon" id="icon" class="form-control">
@@ -108,7 +111,12 @@
                         </select>&nbsp;
                     </div>
                 </div>
-
+                <div class="form-group d-flex align-items-center col-12 col-md-12">
+                    <label for="description" class="small text-primary">Description:</label>&nbsp;&nbsp;
+                    <textarea name="description" id="description"  class="form-control" rows="6" cols="60" >
+                        {{$current_prod->description}}
+                        </textarea>&nbsp;
+                </div>
                 <div class="card-body row d-flex flex-wrap justify-content-start">
 
                     @foreach ($current_prod->getMedia('photos') as $media)
@@ -149,7 +157,7 @@
 
                 <div class="card-footer d-flex flex-column flex-md-row justify-content-between">
                     <div class="mb-2 mb-md-0">
-                        <button type="submit" class="btn btn-primary btn-block">Save</button>
+                        <button type="submit" class="btn btn-primary btn-block" onclick="showLoadingSpinner()">Save</button>
                     </div>
                     <div class="">
                         <a href="{{route('product.index')}}" class="btn btn-info btn-block">Cancel</a>
@@ -197,7 +205,14 @@
                     }
                 });
             });
+
+            function showLoadingSpinner() {
+                document.querySelector('#spinner-load').classList.remove('d-none');
+            }
+
         });
+
+
     </script>
 
 

@@ -43,6 +43,8 @@ class ProductController extends Controller
             'location' => $request->location,
             'icon' => $request->icon,
             'status' => $request->status,
+            'description' => $request->description,
+            'cost' => $request->cost,
         ]);
 
         if ($request->hasFile('photos')) {
@@ -89,6 +91,8 @@ class ProductController extends Controller
                 'location' => $request->location,
                 'icon' => $request->icon,
                 'status' => $request->status,
+                'description' => $request->description,
+                'cost' => $request->cost,
             ]);
 
         if ($request->hasFile('photos')) {

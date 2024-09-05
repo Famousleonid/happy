@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('icon')->nullable();
             $table->string('status')->default('yes');
             $table->text('description')->nullable();
+            $table->integer('cost')->nullable();
             $table->timestamps();
         });
     }

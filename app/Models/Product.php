@@ -20,6 +20,8 @@ class Product extends Model implements hasMedia
         'location',
         'icon',
         'status',
+        'description',
+        'cost',
     ];
 
 

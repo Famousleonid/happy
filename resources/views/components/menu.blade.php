@@ -7,11 +7,12 @@
 
     .navbar-nav .nav-link {
         color: white !important;
+
     }
 
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark  p-0" id="i-menu">
+<nav class="navbar navbar-expand-lg navbar-dark  p-0 " id="i-menu">
     <div class="container p-0">
         <div class="d-flex flex-grow-1">
             <a class="navbar-brand ml-5" href="/"><img class="" src="{{asset('img/favicon.webp')}}" width="40" alt="logo">
