@@ -1,13 +1,10 @@
 @extends('admin.master')
 
-
 @section('content')
-
     <style>
         .label-nowrap {
             white-space: nowrap;
         }
-
         .pic-image {
             width: 100%;
             height: 100%;
@@ -22,14 +19,12 @@
             border: 2px solid #ddd; /* Рамка вокруг изображения */
             display: inline-block;
         }
-
         .image-container img,
         .image-container video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
         .remove-image {
             position: absolute;
             top: 3px;
@@ -117,31 +112,21 @@
                         {{$current_prod->description}}
                         </textarea>&nbsp;
                 </div>
-                <div class="card-body row d-flex flex-wrap justify-content-start">
-
+                <div class="card-body row d-flex flex-wrap justify-content-start sortable-images" id="sortable-gallery">
                     @foreach ($current_prod->getMedia('photos') as $media)
-
-                        <div class="image-container">
-
-                            @if(strpos($media->mime_type, 'image') !== false)
-
+                        <div class="image-container" data-id="{{ $media->id }}">
                                 <a href="{{ $media->getFullUrl() }}" data-fancybox="gallery-{{ $current_prod->id }}">
                                     <img class="pic-image" src="{{ $media->getUrl() }}" alt="">
                                 </a>
-                            @elseif(strpos($media->mime_type, 'video') !== false)
-
-                                <a href="{{ $media->getFullUrl() }}" data-fancybox="gallery-{{ $current_prod->id }}">
-                                    <video width="150" controls>
-                                        <source src="{{ $media->getUrl() }}" type="{{ $media->mime_type }}">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </a>
-                            @endif
-                            <button type="button" class="remove-image" data-id="{{ $media->id }}">&times;</button>
+{{--                                <a href="{{ $media->getFullUrl() }}" data-fancybox="gallery-{{ $current_prod->id }}">--}}
+{{--                                    <video width="150" controls>--}}
+{{--                                        <source src="{{ $media->getUrl() }}" type="{{ $media->mime_type }}">--}}
+{{--                                        Your browser does not support the video tag.--}}
+{{--                                    </video>--}}
+{{--                                </a>--}}
+                            <button type="button" class="remove-image" data-btnid="{{ $media->id }}">&times;</button>
                         </div>
-
                     @endforeach
-
                 </div>
 
                 <div class="form-group ">
@@ -152,9 +137,7 @@
                            multiple
                            data-max-file-size="5MB"
                            data-max-files="10"/>
-
                 </div>
-
                 <div class="card-footer d-flex flex-column flex-md-row justify-content-between">
                     <div class="mb-2 mb-md-0">
                         <button type="submit" class="btn btn-primary btn-block" onclick="showLoadingSpinner()">Save</button>
@@ -167,18 +150,45 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+
+            const sortableGallery = document.getElementById('sortable-gallery');
+
+            Sortable.create(sortableGallery, {
+                animation: 150,
+                ghostClass: 'blue-background-class',
+                onEnd: function (evt) {
+                    const items = Array.from(sortableGallery.querySelectorAll('.image-container'));
+                    const order = items.map(item => item.getAttribute('data-id').trim());
+
+                    fetch('/admin/media/reorder', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ order: order })
+                    }).then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                alert('Не удалось изменить порядок изображений.');
+                            }
+                        }).catch(error => {
+                        console.error('Ошибка:', error);
+                    });
+                }
+            });
+
+//----------------------------------------------------------------------------------------------------------
+
             const removeButtons = document.querySelectorAll('.remove-image');
-
-            if (removeButtons.length === 0) {
-                console.warn('No elements with class .remove-image found.');
-            }
-
             removeButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    const mediaId = this.getAttribute('data-id');
-                    const url = `/admin/media/${mediaId}`;  // Динамически создаем URL на стороне клиента
+                    const mediaId = this.getAttribute('data-btnid');
+                    const url = `/admin/media/${mediaId}`;
                     const container = this.closest('.image-container');
 
                     if (mediaId && container && confirm('Are you sure you want to delete this image?')) {
@@ -209,15 +219,9 @@
             function showLoadingSpinner() {
                 document.querySelector('#spinner-load').classList.remove('d-none');
             }
-
         });
 
-
     </script>
-
-
-
-
 
 @endsection
 

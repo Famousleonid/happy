@@ -100,9 +100,10 @@ class ProductController extends Controller
                 $product->addMedia($photo)->toMediaCollection('photos');
             }
         }
+        $current_prod = Product::find($id);
+        $categories = Category::all();
 
-
-        return redirect()->route('product.index')->with('success', 'Product was edited successfully');
+        return view('admin.product.edit', compact('categories', 'current_prod'));
     }
 
     public function destroy($id)

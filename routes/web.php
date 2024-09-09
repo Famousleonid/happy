@@ -30,5 +30,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('/product', ProductController::class);
     Route::resource('/category', CategoryController::class);
     Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
-
+    Route::post('/media/reorder', [MediaController::class, 'reorder'])->name('media.reorder');
 });

@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+{{--    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.dataTables.min.css">--}}
+
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
 {{--    <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet">--}}
 {{--    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet">--}}
 
@@ -182,6 +185,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+{{--<script src="https://cdn.datatables.net/fixedheader/3.3.2/js/dataTables.fixedHeader.min.js"></script>--}}
 <script src="https://kit.fontawesome.com/49f401fbd8.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
