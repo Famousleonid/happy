@@ -25,20 +25,37 @@
                 <div id="main-image-container" class="text-center mb-3" style="height: 60vh; overflow: hidden;">
                     <img id="main-image" src="{{ $images->first()->getUrl() }}" alt="Main Image" style="height: 100%; width: 100%; object-fit: cover;">
                 </div>
-
                 <div class="d-flex align-items-center">
                     <button class="btn btn-outline-secondary" id="scroll-left" style="height: 50px;">&lt;</button>
                     <div id="thumbnail-container" class="d-flex overflow-auto" style="width: calc(100% - 50px); white-space: nowrap;">
                         @foreach($images as $image)
+
+{{--                            @php $fileExtension = pathinfo($image->getUrl(), PATHINFO_EXTENSION); @endphp--}}
+{{--                            @if(in_array($fileExtension, ['jpg', 'jpeg', 'png']))--}}
+{{--                                <div class="thumbnail m-2" style="width: 50px; height: 50px; flex-shrink: 0; overflow: hidden;">--}}
+{{--                                    <img src="{{ $image->getUrl() }}" class="img-thumbnail" alt="Thumbnail" data-full-image="{{ $image->getUrl() }}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;">--}}
+{{--                                </div>--}}
+{{--                            @elseif(in_array($fileExtension, ['mp4', 'mov', 'avi']))--}}
+{{--                                <div class="thumbnail m-2" style="width: 50px; height: 50px; flex-shrink: 0; overflow: hidden;">--}}
+{{--                                    <video width="50" height="50" controls>--}}
+{{--                                        <source src="{{ $image->getUrl() }}" type="video/{{ $fileExtension }}">--}}
+{{--                                        Your browser does not support the video tag.--}}
+{{--                                    </video>--}}
+{{--                                </div>--}}
+{{--                            @else--}}
+{{--                                <p>Неподдерживаемый формат файла: {{ $fileExtension }}</p>--}}
+{{--                            @endif--}}
+
                             <div class="thumbnail m-2" style="width: 50px; height: 50px; flex-shrink: 0; overflow: hidden;">
                                 <img src="{{ $image->getUrl() }}" class="img-thumbnail" alt="Thumbnail" data-full-image="{{ $image->getUrl() }}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;">
                             </div>
+
+
                         @endforeach
                     </div>
                     <button class="btn btn-outline-secondary" id="scroll-right" style="height: 50px;">&gt;</button>
                 </div>
             </div>
-
 
             <div class="col-12 col-md-4 offset-md-1 mt-2 ">
 

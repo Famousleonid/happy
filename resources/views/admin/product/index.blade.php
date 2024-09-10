@@ -9,18 +9,18 @@
             word-wrap: break-word;
         }
 
-         input[type="checkbox"] {
-             width: 50px;
-             height: 30px;
-             -webkit-appearance: none;
-             -moz-appearance: none;
-             background: #f08282;
-             outline: none;
-             border-radius: 50px;
-             box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
-             transition: 0.5s;
-             position: relative;
-         }
+        input[type="checkbox"] {
+            width: 50px;
+            height: 30px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: #f08282;
+            outline: none;
+            border-radius: 50px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+            transition: 0.5s;
+            position: relative;
+        }
 
         input:checked[type="checkbox"] {
             background: #42a50d;
@@ -71,13 +71,11 @@
                                 <th data-orderable="true">Category</th>
                                 <th>Name</th>
                                 <th>Price</th>
-{{--                                <th>Old_price</th>--}}
                                 <th>Images</th>
-{{--                                <th>location</th>--}}
-{{--                                <th>Icon video</th>--}}
-{{--                                <th>Visible</th>--}}
-                                <th class="text-center" data-orderable="false">Edit</th>
-                                <th class="text-center" data-orderable="false">Delete</th>
+                                <th class="text-center">Edit</th>
+                                <th class="text-center">Delete</th>
+                                <th>created_at</th>
+                                <th>updated_at</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -86,28 +84,13 @@
                                     <td>{{$product->category->name}}</td>
                                     <td>{{$product->name}}</td>
                                     <td>{{$product->price}}</td>
-{{--                                    <td>{{$product->old_price}}</td>--}}
                                     <td>
-                                    @foreach ($product->getMedia('photos') as $media)
-                                        @if(strpos($media->mime_type, 'image') !== false)
-
+                                        @foreach ($product->getMedia('photos') as $media)
                                                 <a href="{{ $media->getFullUrl() }}" data-fancybox="gallery-{{ $product->id }}">
                                                     <img src="{{ $media->getUrl() }}" width="25" alt="">
                                                 </a>
-                                        @elseif(strpos($media->mime_type, 'video') !== false)
-
-                                                <a href="{{ $media->getFullUrl() }}" data-fancybox="gallery-{{ $product->id }}">
-                                                    <video width="25" controls>
-                                                        <source src="{{ $media->getUrl() }}" type="{{ $media->mime_type }}">
-                                                        Your browser does not support the video tag.
-                                                    </video>
-                                                </a>
-                                            @endif
                                         @endforeach
                                     </td>
-{{--                                    <td>{{$product->location}}</td>--}}
-{{--                                    <td>{{$product->icon}}</td>--}}
-{{--                                    <td>{{$product->status}}</td>--}}
                                     <td class="text-center">
                                         <a href="{{route('product.edit', ['product' => $product->id]) }}"><img src="{{asset('img/set.png')}}" width="25" alt=""></a>
                                     </td>
@@ -124,6 +107,8 @@
                                             </form>
                                         </div>
                                     </td>
+                                    <td>{{$product->created_at}}</td>
+                                    <td>{{$product->apdated_at}}</td>
                                 </tr>
                             @endforeach
 
@@ -144,7 +129,7 @@
 
     <script>
 
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
 
             let table = $('#product-list').DataTable({
                 "AutoWidth": false,
@@ -153,26 +138,25 @@
                 "paging": false,
                 "ordering": true,
                 "info": false,
-                "ajax": {
-                    "url": "/api/data",  // URL для загрузки данных
-                    "type": "POST"
-                },
+
                 columns: [
-                    { "data": "category", "width": "10%" },
-                    { "data": "name", "width": "20%" },
-                    { "data": "price", "width": "10%" },
-                    { "data": "picture", "width": "40%" },
-                    { "data": "edit", "width": "80px" },
-                    { "data": "delete", "width": "80px" },
-
+                    {"data": "category", "width": "10%"},
+                    {"data": "name", "width": "20%"},
+                    {"data": "price", "width": "10%"},
+                    {"data": "picture", "width": "40%"},
+                    {"data": "edit", "width": "80px"},
+                    {"data": "delete", "width": "80px"},
+                    {"data": "created_at"},      // Скрытый столбец
+                    {"data": "updated_at"}       // Скрытый столбец
                 ],
-                order: [[0, 'asc']],
-
+                order: [
+                    [6, 'desc'],
+                   // [7, 'desc']
+                ],
                 columnDefs: [
-                  //   { targets: 0, visible: false },
-                     { targets: 3, orderable: false },
-                     { targets: 4, orderable: false },
-                     { targets: 5, orderable: false }
+                    {targets: [3,4,5], orderable: false},
+                    {targets: 6, visible: false},          // Скрываем столбец 6, но он участвует в сортировке
+                    {targets: 7, visible: false}
                 ],
                 responsive: true,
                 dom: 'Bfrtip',
@@ -180,24 +164,18 @@
                     'copy', 'excel', 'pdf', 'print'
                 ],
             });
+            let pictureColumn = table.column(3);
+            pictureColumn.visible(false);
 
-            $('#is_picture').on('change', function() {
-                let pictureColumn = table.column(3);
+            $('#is_picture').on('change', function () {
                 if (this.checked) {
                     pictureColumn.visible(true);
                 } else {
-                    pictureColumn.visible(false);
+                   pictureColumn.visible(false);
                 }
                 table.draw();
+               // location.reload(true);
             });
-
-
-
-
-
-
-
-
 
 
             $('[data-fancybox]').fancybox({
@@ -213,11 +191,6 @@
                 }
             })
         });
-
-
-
-
-
 
 
     </script>

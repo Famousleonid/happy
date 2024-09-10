@@ -32,7 +32,13 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'max:100'],
             'category_id' => ['required'],
             'price' => ['required'],
-
+            'location' => ['required'],
+            'photos' => ['required', 'array', 'max:10'],
+            'photos.*' => ['file', 'mimes:jpg,jpeg,png', 'max:8192'],
+        ], [
+            'photos.*.mimes' => 'Each photo must be a jpg, jpeg, or png.',
+            'photos.*.max' => 'Each photo must be no larger than 8MB.',
+            'photos.max' => 'You can upload a maximum of 10 photos.',
         ]);
 
         $product = Product::create([
@@ -77,7 +83,12 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'max:100'],
             'category_id' => ['required'],
             'price' => ['required'],
-
+            'photos' => ['max:10'],
+            'photos.*' => ['file', 'mimes:jpg,jpeg,png,mp4', 'max:8192'],
+        ], [
+            'photos.*.mimes' => 'Each photo must be a jpg, jpeg, or png. mp4 or mov ',
+            'photos.*.max' => 'Each photo must be no larger than 8MB.',
+            'photos.max' => 'You can upload a maximum of 10 photos.',
         ]);
 
         $product = Product::find($id);
