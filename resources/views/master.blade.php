@@ -66,7 +66,7 @@
             <div class="col-3 col-md-6 mb-1 mb-md-0">
                 <a href="#" data-bs-toggle="modal" data-bs-target="#locationModal" class="text-white text-decoration-none">
                     <img src="{{ asset('img/icons/location.png') }}" alt="Location" width="25">&nbsp;
-                    <span class="footer-location-text">Toronto, South-east Etobicoke near The Queensway and ParkLawn Rd M8Y4E3</span>
+                    <span class="footer-location-text">M8Y4E3, Toronto, South-east Etobicoke near The Queensway and ParkLawn Rd</span>
                 </a>
             </div>
         </div>
