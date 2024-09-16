@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class ProductController extends Controller
 {
@@ -16,6 +17,65 @@ class ProductController extends Controller
 
         return View('admin.product.index', compact('products'));
     }
+
+
+    public function getData(Request $request)
+    {
+
+        $showImages = $request->input('show_images') === 'true';
+
+        $products = Product::select('products.*', 'categories.name as category_name')
+            ->leftJoin('categories', 'categories.id', '=', 'products.category_id');
+
+        if ($showImages) {
+            $products = $products->with('media');
+        }
+
+        $dataTable = DataTables::of($products)
+            ->editColumn('created_at', function ($product) {
+                return strtolower($product->created_at->translatedFormat('d.M.Y'));
+            })
+            ->addColumn('edit', function ($product) {
+                return '<a href="' . route('product.edit', $product->id) . '"><i class="fa fa-edit"></i></a>';
+            })
+            ->addColumn('delete', function ($product) {
+                $form = '<form action="'.route('product.destroy', ['product' => $product->id]).'" method="POST" style="display:inline-block;">';
+                $form .= csrf_field();
+                $form .= method_field('DELETE');
+                $form .= '<button class="btn btn-xs btn-danger delete-button " type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete product"" data-message="Are you sure you want to delete product: '.$product->name.'?">';
+                $form .= '<i class="fa fa-trash"></i>';
+                $form .= '</button>';
+                $form .= '</form>';
+                return $form;
+            })
+            ->filterColumn('category_name', function ($query, $keyword) {
+                $query->where('categories.name', 'like', "%{$keyword}%");
+            })
+            ->orderColumn('category_name', function ($query, $order) {
+                $query->orderBy('categories.name', $order);
+            });
+
+
+        if ($showImages) {
+            $dataTable->addColumn('images', function ($product) {
+                $images = $product->getMedia('photos');
+                $imagesHtml = '';
+                foreach ($images as $image) {
+                    $url = $image->getUrl('thumb');
+                    $imagesHtml .= '<a href="'.$image->getFullUrl().'" data-fancybox="gallery-'.$product->id.'"><img src="'.$url.'" width="30" height="30"  style="margin-right:5px;" loading="lazy"/></a>';
+                }
+                return $imagesHtml ?: 'No Images';
+            });
+        }
+        $rawColumns = ['edit', 'delete'];
+        if ($showImages) {
+            $rawColumns[] = 'images';
+        }
+
+        return $dataTable->rawColumns($rawColumns)
+            ->make(true);
+    }
+
 
     public function create()
     {

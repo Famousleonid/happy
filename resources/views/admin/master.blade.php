@@ -41,8 +41,8 @@
 
 <body class="hold-transition sidebar-mini  layout-fixed ">
 
-<div id="spinner-load">
-    <i style="text-align: center; z-index: 10000;" class="fa fa-spinner fa-spin text-primary fa-3x win"></i>
+<div id="spinner-load" style="display: none;">
+    <i style="text-align: center; z-index: 9999;" class="fa fa-spinner fa-spin text-primary fa-3x win"></i>
 </div>
 
 <div class="">
@@ -214,21 +214,23 @@
         });
 
         $('#confirmDelete').find('.modal-footer #buttonConfirm').on('click', function () {
+
+            $(this).prop('disabled', true);
+            showLoadingSpinner();
             $(this).data('form').submit();
         });
 
 
-        function showLoadingSpinner() {
-            document.querySelector('#spinner-load').classList.remove('d-none');
+         function showLoadingSpinner() {
+                 $('#spinner-load').hide();
+         }
 
-        }
+        // function hideLoadingSpinner() {
+        //     document.querySelector('#spinner-load').classList.add('d-none');
+        //
+        // }
 
-        function hideLoadingSpinner() {
-            document.querySelector('#spinner-load').classList.add('d-none');
-
-        }
-
-        hideLoadingSpinner();
+        // hideLoadingSpinner();
 
     });
 </script>

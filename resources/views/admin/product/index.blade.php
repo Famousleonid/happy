@@ -47,73 +47,23 @@
 
     </style>
 
-
-
     <div class="container-fluid pl-3 pr-3 pt-2">
         <div class="card shadow firm-border bg-white mt-2">
             <div class="card-header row">
                 <div class="col-5"><h3 class="card-title text-bold">list of product ( {{count($products)}} )</h3></div>
                 <div class="col-2 form-check d-flex align-items-center">
-                    <label for="is_picture" class="m-0"><span class="text-bold mr-4 ">Picture</span>&nbsp;</label>
-                    <input class="form-check-input" type="checkbox" name="is_picture" value="0" id="is_picture">
+                    <label for="toggle-images" class="m-0"><span class="text-bold mr-4 ">Picture</span>&nbsp;</label>
+                    <input class="form-check-input toggle-column" type="checkbox" name="is_picture" data-column="3" id="toggle-images">
                 </div>
                 <div class="col-4"><a id="admin_new_firm_create" href={{route('product.create')}} class=""><img src="{{asset('img/plus.png')}}" width="30px" alt="" data-toggle="tooltip" data-placement="top" title="Add new product"></a></div>
                 <div class="col-1 card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool toggle-column" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
             <div class="card-body">
                 <div class="box-body table-responsive">
                     @if(count($products))
-                        <table id="product-list" class="table-sm table-bordered table-striped table-hover " style="width:100%;">
-                            <thead>
-                            <tr>
-                                <th data-orderable="true">Category</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Images</th>
-                                <th class="text-center">Edit</th>
-                                <th class="text-center">Delete</th>
-                                <th>created_at</th>
-                                <th>updated_at</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($products as $product)
-                                <tr>
-                                    <td>{{$product->category->name}}</td>
-                                    <td>{{$product->name}}</td>
-                                    <td>{{$product->price}}</td>
-                                    <td>
-                                        @foreach ($product->getMedia('photos') as $media)
-                                                <a href="{{ $media->getFullUrl() }}" data-fancybox="gallery-{{ $product->id }}">
-                                                    <img src="{{ $media->getUrl() }}" width="25" alt="">
-                                                </a>
-                                        @endforeach
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{route('product.edit', ['product' => $product->id]) }}"><img src="{{asset('img/set.png')}}" width="25" alt=""></a>
-                                    </td>
-                                    <td class="text-center">
-                                        <div>
-                                            <form action="{{route('product.destroy', ['product' => $product->id])}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete product" data-message="Are you sure you want to delete product: {{$product->name}} ?">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </button>
-
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <td>{{$product->created_at}}</td>
-                                    <td>{{$product->apdated_at}}</td>
-                                </tr>
-                            @endforeach
-
-                            </tbody>
-                        </table>
+                        <table id="product-list" class="table-sm table-bordered table-striped table-hover " style="width:100%;"></table>
                     @else
                         <p>No product created</p>
                     @endif
@@ -124,74 +74,120 @@
 
     @include('components.delete')
 
-
-
-
     <script>
 
         document.addEventListener("DOMContentLoaded", function () {
 
-            let table = $('#product-list').DataTable({
-                "AutoWidth": false,
-                "scrollY": "auto",
-                "scrollCollapse": true,
-                "paging": false,
-                "ordering": true,
-                "info": false,
+            $('#spinner-load').show();
 
-                columns: [
-                    {"data": "category", "width": "10%"},
-                    {"data": "name", "width": "20%"},
-                    {"data": "price", "width": "10%"},
-                    {"data": "picture", "width": "40%"},
-                    {"data": "edit", "width": "80px"},
-                    {"data": "delete", "width": "80px"},
-                    {"data": "created_at"},      // Скрытый столбец
-                    {"data": "updated_at"}       // Скрытый столбец
-                ],
-                order: [
-                    [6, 'desc'],
-                   // [7, 'desc']
-                ],
-                columnDefs: [
-                    {targets: [3,4,5], orderable: false},
-                    {targets: 6, visible: false},          // Скрываем столбец 6, но он участвует в сортировке
-                    {targets: 7, visible: false}
-                ],
-                responsive: true,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'excel', 'pdf', 'print'
-                ],
-            });
-            let pictureColumn = table.column(3);
-            pictureColumn.visible(false);
+            function getShowImages() {
+                return localStorage.getItem('show_images') === 'true';
+            }
+            function setShowImages(value) {
+                localStorage.setItem('show_images', value);
+            }
+            $('#toggle-images').prop('checked', getShowImages());
 
-            $('#is_picture').on('change', function () {
-                if (this.checked) {
-                    pictureColumn.visible(true);
-                } else {
-                   pictureColumn.visible(false);
+            function getColumns() {
+                let columns = [
+                    { data: 'id', name: 'id'},
+                    { data: 'category_name', name: 'category_name' },
+                    { data: 'name', name: 'name' },
+                    { data: 'price', name: 'price' },
+                    { data: 'created_at', name: 'created_at', wight: '50px'},
+                    { data: 'edit', name: 'edit', orderable: false, searchable: false, wight: '3%', className: 'text-center' },
+                    { data: 'delete', name: 'delete', orderable: false, searchable: false, wight: '3%', className: 'text-center'}
+                ];
+
+                if (getShowImages()) {
+                    columns.splice(5, 0, { data: 'images', name: 'images', orderable: false, searchable: false, width: '40%' });
                 }
-                table.draw();
-               // location.reload(true);
-            });
 
+                return columns;
+            }
+
+            function initDataTable() {
+                if ($.fn.DataTable.isDataTable('#product-list')) {
+                    $('#product-list').DataTable().destroy();
+                }
+
+                $('#product-list').empty();
+
+                let thead = '<tr>' +
+                    '<th>Id</th>' +
+                    '<th>Category</th>' +
+                    '<th>Name</th>' +
+                    '<th>Price</th>' +
+                    '<th>Created</th>';
+
+                if (getShowImages()) {
+                    thead += '<th>Images</th>';
+                }
+
+                thead +=
+                    '<th class="text-center">Edit</th>' +
+                    '<th class="text-center">Delete</th>' +
+                    '</tr>';
+
+                $('#product-list').append('<thead>' + thead + '</thead><tbody></tbody>');
+
+                let table = $('#product-list').DataTable({
+                    autoWidth: false,
+                    paging: false,
+                    info: false,
+                    processing: true,
+                    serverSide: true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'excel', 'pdf', 'print'
+                    ],
+                    ajax: {
+                        url: '{{ route("products.data") }}',
+                        data: function(d) {
+                            d.show_images = getShowImages();
+                        },
+                        dataSrc: function(json) {
+                            $('#spinner-load').hide();
+                            return json.data;
+                        },
+                        error: function(xhr, error, thrown) {
+                            console.log('Error fetching data:', xhr.responseText);
+                          $('#spinner-load').hide();
+                        }
+                    },
+                    columns: getColumns(),
+                    order: [[0, 'desc']],
+                    columnDefs: [
+                        { targets: '_all', defaultContent: '' }
+                    ]
+                });
+
+                table.on('processing.dt', function(e, settings, processing) {
+                    if (processing) {
+                        $('#spinner-load').show();
+                    } else {
+                        $('#lspinner-load').hide();
+                    }
+                });
+            }
+
+            initDataTable();
+
+            $('#toggle-images').on('change', function() {
+                setShowImages(this.checked);
+                initDataTable();
+            });
 
             $('[data-fancybox]').fancybox({
-                buttons: [
-                    "zoom",
-                    "slideShow",
-                    "download",
-                    "thumbs",
-                    "close"
-                ],
-                video: {
-                    autoStart: true
-                }
+                buttons: ["zoom", "slideShow", "download", "thumbs", "close"],
+                video: {autoStart: true}
             })
+
         });
 
+        function showLoadingSpinner() {
+            document.querySelector('#spinner-load').classList.remove('d-none');
+        }
 
     </script>
 
