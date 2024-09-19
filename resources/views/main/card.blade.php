@@ -47,7 +47,7 @@
                                 <div class="card-img ml-auto mb-1">
                                         @if ($card->getMedia('photos')->first())
                                             <a href="{{route('bigshow',['id'=>$card->id])}}">
-                                                <img class="pic-image" src="{{ $card->getMedia('photos')->first()->getUrl() }}"  alt="Image">
+                                                <img class="pic-image" loading="lazy" src="{{ $card->getMedia('photos')->first()->getUrl('thumb') }}"  alt="Image">
                                             </a>
                                         @else
                                             <img  src="{{asset('img/noimage2.png')}}" width="200" height="200" alt="Image">

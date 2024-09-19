@@ -38,5 +38,8 @@ class Product extends Model implements hasMedia
             ->nonOptimized();
 
     }
-
+    public function views()
+    {
+        return $this->morphMany(View::class, 'viewable');
+    }
 }

@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
-{{--    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.dataTables.min.css">--}}
+    {{--    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.dataTables.min.css">--}}
 
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"/>
 
-{{--    <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet">--}}
-{{--    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet">--}}
+    {{--    <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet">--}}
+    {{--    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet">--}}
 
     <style>
         .firm-border {
@@ -32,9 +32,18 @@
             left: 50%;
             /*            margin: auto;*/
         }
-        .ss {border: 2px solid green}
-        .bb {border: 2px solid blue}
-        .rr {border: 2px solid red}
+
+        .ss {
+            border: 2px solid green
+        }
+
+        .bb {
+            border: 2px solid blue
+        }
+
+        .rr {
+            border: 2px solid red
+        }
     </style>
 
 </head>
@@ -51,7 +60,8 @@
 
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" data-enable-remember="true" href="#" role="button"><i class="fas fa-bars"></i></a>
+                <a class="nav-link" data-widget="pushmenu" data-enable-remember="true" href="#" role="button"><i
+                        class="fas fa-bars"></i></a>
             </li>
         </ul>
 
@@ -83,7 +93,8 @@
         </a>
         <div class="sidebar">
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <li class="nav-item ">
                         <a href="{{route('admin.index')}}" class="nav-link">
                             <i class="nav-icon fa-solid fa-user-tie"></i>
@@ -175,7 +186,7 @@
 
 </div>
 </body>
-<script src="{{asset('js/jquery371min.js')}}" ></script>
+<script src="{{asset('js/jquery371min.js')}}"></script>
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/adminlte.min.js')}}"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
@@ -191,7 +202,7 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
 
         $('.nav-sidebar a').each(function () {
 
@@ -220,17 +231,11 @@
             $(this).data('form').submit();
         });
 
+        function showLoadingSpinner() {
+            $('#spinner-load').hide();
+        }
 
-         function showLoadingSpinner() {
-                 $('#spinner-load').hide();
-         }
 
-        // function hideLoadingSpinner() {
-        //     document.querySelector('#spinner-load').classList.add('d-none');
-        //
-        // }
-
-        // hideLoadingSpinner();
 
     });
 </script>

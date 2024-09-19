@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -124,11 +126,6 @@ class ProductController extends Controller
 
     }
 
-    public function show($id)
-    {
-
-    }
-
     public function edit($id)
     {
         $current_prod = Product::find($id);
@@ -182,5 +179,10 @@ class ProductController extends Controller
         Product::destroy($id);
 
         return redirect()->route('product.index')->with('success', 'Product deleted');
+    }
+
+    public function show($id)
+    {
+
     }
 }
