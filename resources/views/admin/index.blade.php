@@ -38,8 +38,8 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-gradient-secondary shadow">
                     <div class="inner">
-                        <h3>{{ $totalViews }}</h3>
-                        <p>views per day &nbsp; {{ now()->format('d.M.y') }}</p>
+                       <h3> {{ $totalViews }}</h3>
+                        <p>views per day: &nbsp; <span class="text-yellow">{{ now()->format('d.M.y') }} -</span>  {{$todayViews}}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
