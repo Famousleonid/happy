@@ -49,17 +49,20 @@
 
     <div class="container-fluid pl-3 pr-3 pt-2">
         <div class="card shadow firm-border bg-white mt-2">
-            <div class="card-header row">
-                <div class="col-5"><h3 class="card-title text-bold">list of product ( {{count($products)}} )</h3></div>
-                <div class="col-2 form-check d-flex align-items-center">
+
+            <div class="card-header row align-items-center">
+                <div class="col-4 col-md-4"><h4 class="card-title text-bold">Total: {{count($products)}}</h4></div>
+                <div class="col-4 col-md-4 text-md-end text-center"><a id="admin_new_firm_create" href={{route('product.create')}} class=""><img src="{{asset('img/plus.png')}}" width="36px" alt="" data-toggle="tooltip" data-placement="top" title="Add new product"></a></div>
+                <div class="col-4 col-md-4 form-check d-flex align-items-center">
                     <label for="toggle-images" class="m-0"><span class="text-bold mr-4 ">Picture</span>&nbsp;</label>
                     <input class="form-check-input toggle-column" type="checkbox" name="is_picture" data-column="3" id="toggle-images">
                 </div>
-                <div class="col-4"><a id="admin_new_firm_create" href={{route('product.create')}} class=""><img src="{{asset('img/plus.png')}}" width="30px" alt="" data-toggle="tooltip" data-placement="top" title="Add new product"></a></div>
-                <div class="col-1 card-tools">
-                    <button type="button" class="btn btn-tool toggle-column" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
-                </div>
+
+{{--                <div class="col-1 card-tools">--}}
+{{--                    <button type="button" class="btn btn-tool toggle-column" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>--}}
+{{--                </div>--}}
             </div>
+
             <div class="card-body">
                 <div class="box-body table-responsive">
                     @if(count($products))
