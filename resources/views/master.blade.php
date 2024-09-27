@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Brooch, Sale Brooch, Vintage, Earring">
     <link rel="icon" type="image/png" href="{{ asset('img/icons/favicon2.png') }}"/>
     <title>HappyNat</title>
 
