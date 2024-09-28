@@ -30,7 +30,7 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{ route('category.index') }}" class="small-box-footer">open categories list <i
+                    <a href="{{ route('category.index') }}" class="small-box-footer text">open categories list <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>

@@ -41,10 +41,10 @@ class ProductController extends Controller
                 return '<a href="' . route('product.edit', $product->id) . '"><i class="fa fa-edit"></i></a>';
             })
             ->addColumn('delete', function ($product) {
-                $form = '<form action="'.route('product.destroy', ['product' => $product->id]).'" method="POST" style="display:inline-block;">';
+                $form = '<form action="' . route('product.destroy', ['product' => $product->id]) . '" method="POST" style="display:inline-block;">';
                 $form .= csrf_field();
                 $form .= method_field('DELETE');
-                $form .= '<button class="btn btn-xs btn-danger delete-button " type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete product"" data-message="Are you sure you want to delete product: '.$product->name.'?">';
+                $form .= '<button class="btn btn-xs btn-danger delete-button " type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete product"" data-message="Are you sure you want to delete product: ' . $product->name . '?">';
                 $form .= '<i class="fa fa-trash"></i>';
                 $form .= '</button>';
                 $form .= '</form>';
@@ -55,8 +55,10 @@ class ProductController extends Controller
             })
             ->orderColumn('category_name', function ($query, $order) {
                 $query->orderBy('categories.name', $order);
+            })
+            ->setRowClass(function ($product) {
+                return $product->status === 'no' ? 'text-red' : '';
             });
-
 
         if ($showImages) {
             $dataTable->addColumn('images', function ($product) {
@@ -64,7 +66,7 @@ class ProductController extends Controller
                 $imagesHtml = '';
                 foreach ($images as $image) {
                     $url = $image->getUrl('thumb');
-                    $imagesHtml .= '<a href="'.$image->getFullUrl().'" data-fancybox="gallery-'.$product->id.'"><img src="'.$url.'" width="30" height="30"  style="margin-right:5px;" loading="lazy"/></a>';
+                    $imagesHtml .= '<a href="' . $image->getFullUrl() . '" data-fancybox="gallery-' . $product->id . '"><img src="' . $url . '" width="30" height="30"  style="margin-right:5px;" loading="lazy"/></a>';
                 }
                 return $imagesHtml ?: 'No Images';
             });
